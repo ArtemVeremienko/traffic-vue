@@ -39,25 +39,10 @@
                         <a href="apps-ecommerce-products.html">Сайты</a>
                       </li>
                       <li>
-                        <a href="apps-ecommerce-products-details.html"
-                          >Products Details</a
-                        >
-                      </li>
-                      <li>
                         <a href="apps-ecommerce-orders.html">Категории</a>
                       </li>
                       <li>
-                        <a href="apps-ecommerce-orders-details.html"
-                          >Order Details</a
-                        >
-                      </li>
-                      <li>
                         <a href="apps-ecommerce-customers.html">Кластеры</a>
-                      </li>
-                      <li>
-                        <a href="apps-ecommerce-shopping-cart.html"
-                          >Shopping Cart</a
-                        >
                       </li>
                       <li>
                         <a href="apps-ecommerce-checkout.html">Запросы</a>
@@ -135,7 +120,11 @@
                     class="side-nav-item"
                     :class="{ 'mm-active': indexVisible === 4 }"
                   >
-                    <a href="#" class="side-nav-link" @click.prevent="changeActive(4)>
+                    <a
+                      href="#"
+                      class="side-nav-link"
+                      @click.prevent="changeActive(4)"
+                    >
                       <i class="uil-store"></i>
                       <span> Технический монитор </span>
                     </a>
@@ -145,7 +134,12 @@
                     class="side-nav-item"
                     :class="{ 'mm-active': indexVisible === 5 }"
                   >
-                    <a href="#" class="side-nav-link" aria-expanded="false" @click.prevent="changeActive(5) >
+                    <a
+                      href="#"
+                      class="side-nav-link"
+                      aria-expanded="false"
+                      @click.prevent="changeActive(5)"
+                    >
                       <i class="uil-store"></i>
                       <span> Отчёты </span>
                     </a>
