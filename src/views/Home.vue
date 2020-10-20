@@ -1,18 +1,41 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="wrapper mm-show">
+    <LeftSideMenu />
+    <div class="content-page">
+      <div class="content">
+        <Navbar />
+        <div class="container-fluid">
+          <Filters />
+          <Table />
+        </div>
+      </div>
+      <Footer />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import LeftSideMenu from "@/components/LeftSideMenu.vue";
+import Navbar from "@/components/Navbar.vue";
+import Filters from "@/components/Filters.vue";
+import Table from "@/components/Table.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    LeftSideMenu,
+    Navbar,
+    Filters,
+    Table,
+    Footer,
+  },
+};
 </script>
+
+<style>
+[data-toggle]:focus + .dropdown-menu {
+  display: block;
+}
+</style>
