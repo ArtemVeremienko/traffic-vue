@@ -135,7 +135,7 @@
                     class="side-nav-item"
                     :class="{ 'mm-active': indexVisible === 4 }"
                   >
-                    <a href="#" class="side-nav-link">
+                    <a href="#" class="side-nav-link" @click.prevent="changeActive(4)>
                       <i class="uil-store"></i>
                       <span> Технический монитор </span>
                     </a>
@@ -145,7 +145,7 @@
                     class="side-nav-item"
                     :class="{ 'mm-active': indexVisible === 5 }"
                   >
-                    <a href="#" class="side-nav-link" aria-expanded="false">
+                    <a href="#" class="side-nav-link" aria-expanded="false" @click.prevent="changeActive(5) >
                       <i class="uil-store"></i>
                       <span> Отчёты </span>
                     </a>
