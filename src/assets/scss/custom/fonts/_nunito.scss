@@ -4,32 +4,36 @@
 
 @font-face {
   font-family: 'Nunito';
-  src: url('/assets/Nunito-Light.eot');
-  src: local('Nunito Light'), local('Nunito-Light'), url('/assets/Nunito-Light.eot?#iefix') format('embedded-opentype'), url('/assets/Nunito-Light.woff') format('woff'), url('/assets/Nunito-Light.ttf') format('truetype'), url('/assets/Nunito-Light.svg#Roboto') format('svg');
   font-weight: 300;
   font-style: normal;
+  src:  local('Nunito Light'), local('Nunito-Light'),
+    url('assets/fonts/Nunito-Light.woff2') format('woff2'),
+    url('assets/fonts/Nunito-Light.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Nunito';
-  src: url('/assets/Nunito-Regular.eot');
-  src: local('Nunito Regular'), local('Nunito-Regular'), url('/assets/Nunito-Regular.eot?#iefix') format('embedded-opentype'), url('/assets/Nunito-Regular.woff') format('woff'), url('/assets/Nunito-Regular.ttf') format('truetype'), url('/assets/Nunito-Regular.svg#Roboto') format('svg');
   font-weight: 400;
   font-style: normal;
+  src:  local('Nunito Regular'), local('Nunito-Regular'),
+    url('assets/fonts/Nunito-Regular.woff2') format('woff2'),
+    url('assets/fonts/Nunito-Regular.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Nunito';
-  src: url('/assets/Nunito-SemiBold.eot');
-  src: local('Nunito SemiBold'), local('Nunito-SemiBold'), url('/assets/Nunito-SemiBold.eot?#iefix') format('embedded-opentype'), url('/assets/Nunito-SemiBold.woff') format('woff'), url('/assets/Nunito-SemiBold.ttf') format('truetype'), url('/assets/Nunito-SemiBold.svg#Roboto') format('svg');
   font-weight: 600;
   font-style: normal;
+  src:  local('Nunito SemiBold'), local('Nunito-SemiBold'),
+    url('assets/fonts/Nunito-SemiBold.woff2') format('woff2'),
+    url('assets/fonts/Nunito-SemiBold.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Nunito';
-  src: url('/assets/Nunito-Bold.eot');
-  src: local('Nunito Bold'), local('Nunito-Bold'), url('/assets/Nunito-Bold.eot?#iefix') format('embedded-opentype'), url('/assets/Nunito-Bold.woff') format('woff'), url('/assets/Nunito-Bold.ttf') format('truetype'), url('/assets/Nunito-Bold.svg#Roboto') format('svg');
   font-weight: 700;
   font-style: normal;
+  src:  local('Nunito Bold'), local('Nunito-Bold'),
+    url('assets/fonts/Nunito-Bold.woff2') format('woff2'),
+    url('assets/fonts/Nunito-Bold.woff') format('woff');
 }
