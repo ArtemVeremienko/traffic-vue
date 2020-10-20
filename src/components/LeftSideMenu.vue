@@ -106,11 +106,11 @@
                       aria-expanded="false"
                     >
                       <li>
-                        <a href="apps-ecommerce-products.html">Компании GWS</a>
+                        <a href="apps-ecommerce-products.html">Компании</a>
                       </li>
                       <li>
                         <a href="apps-ecommerce-products-details.html"
-                          >Категории GWS</a
+                          >Категории</a
                         >
                       </li>
                     </ul>
