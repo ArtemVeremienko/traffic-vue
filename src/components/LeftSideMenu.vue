@@ -164,7 +164,6 @@ export default {
   },
   methods: {
     changeActive(idx) {
-      console.log(this.indexVisible, idx);
       if (idx === this.indexVisible) {
         this.indexVisible = 0;
       } else {
