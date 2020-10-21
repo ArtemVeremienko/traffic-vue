@@ -15,7 +15,7 @@
 
 #nav {
   z-index: 9999;
-  position: absolute;
+  position: fixed;
   background: rgb(0 0 0 / 0.6);
   padding: 0.5rem;
 }
