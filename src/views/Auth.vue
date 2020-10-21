@@ -32,6 +32,9 @@
                       placeholder="username"
                       v-model.trim="user.login"
                     />
+                    <div class="invalid-feedback">
+                      Пожалуйста, введите логин
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row mb-3">
@@ -47,16 +50,30 @@
                       placeholder="123456789"
                       v-model.trim="user.password"
                     />
-                    <div :class="{ show: loginError }" class="invalid-feedback">
-                      Введите правильный логин или пароль
+                    <div class="invalid-feedback">
+                      Пожалуйста, введите пароль
                     </div>
                   </div>
+                </div>
+
+                <div
+                  v-if="loginError"
+                  class="alert alert-danger text-center"
+                  role="alert"
+                >
+                  <i class="dripicons-wrong mr-2"></i> Введите правильный логин
+                  или пароль
                 </div>
               </div>
             </div>
           </div>
 
-          <button class="btn btn-info">Войти</button>
+          <button
+            class="btn btn-info"
+            :disabled="!user.login || !user.password"
+          >
+            Войти
+          </button>
         </div>
       </div>
     </form>
