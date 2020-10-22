@@ -97,7 +97,7 @@
 </template>
 
 <script>
-const authURL = "https://seo-kit.ru/api/v1/auth";
+import { mapState } from "vuex";
 
 export default {
   name: "Auth",
@@ -106,19 +106,22 @@ export default {
       loginError: false,
       serverError: false,
       user: {
-        email: "",
-        password: "",
+        email: "user@domain.com",
+        password: "string",
       },
     };
   },
+  computed: {
+    ...mapState({
+      authURL: "authURL",
+      headers: "headers",
+    }),
+  },
   methods: {
     loginUser() {
-      fetch(authURL, {
+      fetch(this.authURL, {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-type": "application/json",
-        },
+        headers: this.headers,
         body: JSON.stringify(this.user),
       })
         .then((res) => {
@@ -133,14 +136,14 @@ export default {
           }
         })
         .then((json) => {
-          this.$store.commit("setUser", json);
-          localStorage.setItem("login", "true");
+          this.$store.commit("setUser", json.user);
+          localStorage.setItem("access_token", json.access_token);
+          localStorage.setItem("refresh_token", json.refresh_token);
           this.$router.push("/home");
         })
         .catch((err) => console.error(err));
     },
     goToRegistration() {
-      console.log(this);
       this.$router.push("registration");
     },
   },
