@@ -40,22 +40,22 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "Navbar",
   methods: {
     logout() {
-      localStorage.removeItem("login");
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
       this.$router.push("auth");
     },
   },
   computed: {
-    username() {
-      console.log(this.$store.user);
-      return "name";
-    },
-    email() {
-      return "email";
-    },
+    ...mapState({
+      username: (state) => state.user.name,
+      email: (state) => state.user.email,
+    }),
   },
 };
 </script>
