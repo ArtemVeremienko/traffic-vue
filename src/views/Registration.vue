@@ -50,25 +50,25 @@
             <div class="row">
               <div class="col-12">
                 <div class="form-group row mb-3">
-                  <label class="col-md-3 col-form-label" for="userName"
-                    >Логин</label
+                  <label class="col-md-3 col-form-label" for="email"
+                    >Email</label
                   >
                   <div class="col-md-9">
                     <input
-                      type="text"
+                      type="email"
+                      id="email"
+                      name="email"
                       class="form-control"
-                      id="userName"
-                      name="userName"
-                      placeholder="username"
-                      v-model.trim="$v.user.login.$model"
-                      :class="{ 'is-invalid': $v.user.login.$error }"
+                      placeholder="cory1979@hotmail.com"
+                      :class="{ 'is-invalid': $v.user.email.$error }"
+                      v-model.trim="$v.user.email.$model"
                     />
                     <div class="invalid-feedback">
-                      Пожалуйста введите логин длинее
-                      {{ $v.user.login.$params.minLength.min }} символов
+                      Пожалуйста введите корректную почту
                     </div>
                   </div>
                 </div>
+
                 <div class="form-group row mb-3">
                   <label class="col-md-3 col-form-label" for="password">
                     Пароль</label
@@ -158,26 +158,6 @@
                     </div>
                   </div>
                 </div>
-
-                <div class="form-group row mb-3">
-                  <label class="col-md-3 col-form-label" for="email"
-                    >Email</label
-                  >
-                  <div class="col-md-9">
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      class="form-control"
-                      placeholder="cory1979@hotmail.com"
-                      :class="{ 'is-invalid': $v.user.email.$error }"
-                      v-model.trim="$v.user.email.$model"
-                    />
-                    <div class="invalid-feedback">
-                      Пожалуйста введите коррекстную почту
-                    </div>
-                  </div>
-                </div>
               </div>
               <!-- end col -->
             </div>
@@ -232,6 +212,14 @@
             <i class="dripicons-wrong mr-2"></i> Неверно заполненые поля
           </div>
 
+          <div
+            v-if="userExist"
+            class="alert alert-danger text-center"
+            role="alert"
+          >
+            <i class="dripicons-wrong mr-2"></i> Пользователь существует
+          </div>
+
           <ul class="list-inline wizard mb-0" v-show="active == 'finish'">
             <li class="next list-inline-item float-right disabled">
               <button class="btn btn-info">{{ submitStatus }}</button>
@@ -245,6 +233,7 @@
 
 <script>
 import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
+import { mapState } from "vuex";
 
 export default {
   name: "Registration",
@@ -252,6 +241,7 @@ export default {
     return {
       active: "account",
       validationError: false,
+      userExist: false,
       submitStatus: "Зарегистрироваться",
       user: {
         login: "",
@@ -264,29 +254,60 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState({
+      regURL: "regURL",
+      headers: "headers",
+    }),
+  },
   methods: {
     changeActive(field) {
       this.active = field;
     },
     registerUser() {
-      console.log("submit!");
       this.$v.$touch();
       if (this.$v.$invalid || !this.user.checked) {
         this.validationError = true;
       } else {
+        const body = JSON.stringify({
+          email: this.user.email,
+          name: this.user.firstName,
+          password: this.user.password,
+          second_name: this.user.secondName,
+        });
+
         this.submitStatus = "Проверка";
-        setTimeout(() => {
-          this.submitStatus = "Готово";
-          this.validationError = false;
-        }, 500);
+
+        fetch(this.regURL, {
+          method: "POST",
+          headers: this.headers,
+          body,
+        })
+          .then((res) => {
+            if (res.ok) return res.json();
+            if (res.status === 409) {
+              this.userExist = true;
+              setTimeout(() => (this.userExist = false), 2000);
+              throw new Error(res.statusText);
+            }
+          })
+          .then((json) => {
+            this.submitStatus = "Готово";
+            this.validationError = false;
+            this.$store.commit("setUser", json.user);
+            localStorage.setItem("access_token", json.access_token);
+            localStorage.setItem("refresh_token", json.refresh_token);
+            this.$router.push("/home");
+          })
+          .catch((err) => console.error(err));
       }
     },
   },
   validations: {
     user: {
-      login: {
+      email: {
         required,
-        minLength: minLength(3),
+        email,
       },
       password: {
         required,
@@ -302,10 +323,6 @@ export default {
       secondName: {
         required,
         minLength: minLength(3),
-      },
-      email: {
-        required,
-        email,
       },
       checked: {
         required,
