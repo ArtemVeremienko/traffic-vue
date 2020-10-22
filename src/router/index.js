@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     beforeEnter: (to, from, next) => {
-      if (localStorage.getItem('login')) next('/home')
+      if (localStorage.getItem('access_token')) next('/home')
       else next('/auth')
     }
   },
