@@ -3,9 +3,11 @@
     <div class="btn-group ml-auto">
       <button type="button" class="btn btn-light">
         <i class="dripicons-mail"></i>
+        {{ email }}
       </button>
       <button type="button" class="btn btn-light">
         <i class="dripicons-user"></i>
+        {{ username }}
       </button>
       <div class="btn-group">
         <button
@@ -14,7 +16,8 @@
           data-toggle="dropdown"
           aria-expanded="false"
         >
-          Login <span class="caret"></span>
+          <i class="dripicons-menu"></i>
+          Меню <span class="caret"></span>
         </button>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#">Планировщик</a>
@@ -26,8 +29,11 @@
           <a class="dropdown-item" href="#">Формула видимости</a>
           <a class="dropdown-item" href="#">Конкуренты</a>
           <a class="dropdown-item" href="#">Пользователи</a>
-          <a class="dropdown-item" href="#">Выход</a>
         </div>
+        <a class="btn btn-light" href="#" @click.prevent="logout">
+          <i class="dripicons-exit"></i>
+          Выход
+        </a>
       </div>
     </div>
   </div>
@@ -36,6 +42,21 @@
 <script>
 export default {
   name: "Navbar",
+  methods: {
+    logout() {
+      localStorage.removeItem("login");
+      this.$router.push("auth");
+    },
+  },
+  computed: {
+    username() {
+      console.log(this.$store.user);
+      return "name";
+    },
+    email() {
+      return "email";
+    },
+  },
 };
 </script>
 
