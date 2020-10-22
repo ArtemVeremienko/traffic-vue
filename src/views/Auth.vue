@@ -76,12 +76,20 @@
             </div>
           </div>
 
-          <button
-            class="btn btn-info"
-            :disabled="!user.email || !user.password"
-          >
-            Войти
-          </button>
+          <div class="mb-1 d-flex align-items-center flex-column">
+            <button
+              class="btn btn-info"
+              :disabled="!user.email || !user.password"
+            >
+              Войти
+            </button>
+            <a
+              href="/registration"
+              class="btn btn-link"
+              @click.prevent="goToRegistration"
+              >У вас нет аккаунта? Регистрация</a
+            >
+          </div>
         </div>
       </div>
     </form>
@@ -115,13 +123,25 @@ export default {
       })
         .then((res) => {
           if (!res.ok) {
-            this.serverError = true;
-            setTimeout(() => (this.serverError = false), 2000);
+            this.loginError = true;
+            setTimeout(() => (this.loginError = false), 2000);
+            return res.text().then((text) => {
+              throw new Error(text);
+            });
+          } else {
+            return res.json();
           }
-          return res.json();
         })
-        .then((json) => console.log(json))
-        .catch(() => (this.loginError = true));
+        .then((json) => {
+          this.$store.commit("setUser", json);
+          localStorage.setItem("login", "true");
+          this.$router.push("/home");
+        })
+        .catch((err) => console.error(err));
+    },
+    goToRegistration() {
+      console.log(this);
+      this.$router.push("registration");
     },
   },
 };
