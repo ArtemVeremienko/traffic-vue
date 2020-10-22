@@ -106,8 +106,8 @@ export default {
       loginError: false,
       serverError: false,
       user: {
-        email: "user@domain.com",
-        password: "string",
+        email: "", // user@domain.com
+        password: "", // string
       },
     };
   },
