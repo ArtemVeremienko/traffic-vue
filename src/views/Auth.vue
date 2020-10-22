@@ -64,6 +64,14 @@
                   <i class="dripicons-wrong mr-2"></i> Введите правильный логин
                   или пароль
                 </div>
+
+                <div
+                  v-if="serverError"
+                  class="alert alert-danger text-center"
+                  role="alert"
+                >
+                  <i class="dripicons-wrong mr-2"></i> Ошибка на сервере
+                </div>
               </div>
             </div>
           </div>
@@ -88,6 +96,7 @@ export default {
   data() {
     return {
       loginError: false,
+      serverError: false,
       user: {
         login: "",
         password: "",
@@ -98,14 +107,14 @@ export default {
     loginUser() {
       fetch(authURL, {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+
         body: JSON.stringify(this.user),
       })
         .then((res) => {
-          if (!res.ok) console.log("Server error");
+          if (!res.ok) {
+            this.serverError = true;
+            setTimeout(() => (this.serverError = false), 2000);
+          }
           return res.json();
         })
         .then((json) => console.log(json))
