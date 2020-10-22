@@ -21,7 +21,7 @@
               <div class="col-12">
                 <div class="form-group row mb-3">
                   <label class="col-md-3 col-form-label" for="userName"
-                    >Логин</label
+                    >Email</label
                   >
                   <div class="col-md-9">
                     <input
@@ -30,10 +30,10 @@
                       id="userName"
                       name="userName"
                       placeholder="username"
-                      v-model.trim="user.login"
+                      v-model.trim="user.email"
                     />
                     <div class="invalid-feedback">
-                      Пожалуйста, введите логин
+                      Пожалуйста, введите почту
                     </div>
                   </div>
                 </div>
@@ -78,7 +78,7 @@
 
           <button
             class="btn btn-info"
-            :disabled="!user.login || !user.password"
+            :disabled="!user.email || !user.password"
           >
             Войти
           </button>
@@ -98,7 +98,7 @@ export default {
       loginError: false,
       serverError: false,
       user: {
-        login: "",
+        email: "",
         password: "",
       },
     };
