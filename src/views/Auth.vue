@@ -107,7 +107,10 @@ export default {
     loginUser() {
       fetch(authURL, {
         method: "POST",
-
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
         body: JSON.stringify(this.user),
       })
         .then((res) => {
