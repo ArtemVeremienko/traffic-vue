@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Auth from '@/views/Auth.vue'
-import Registration from '@/views/Registration.vue'
-import Home from '@/views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -17,17 +14,21 @@ const routes = [
   {
     path: '/auth',
     name: 'Auth',
-    component: Auth
+    component: () => import('../views/Auth.vue')
   },
   {
     path: '/registration',
     name: 'Registration',
-    component: Registration
+    component: () => import('../views/Registration.vue')
   },
   {
     path: '/home',
     name: 'Home',
-    component: Home,
+    component: () => import('../views/Home.vue'),
+    beforeEnter: (to, from, next) => {
+      if (!localStorage.getItem('access_token')) next('/auth')
+      else next()
+    }
   },
 
 ]
