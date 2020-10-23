@@ -5,7 +5,6 @@
         <ul class="nav nav-pills nav-justified form-wizard-header mb-4">
           <li class="nav-item">
             <a
-              href="#basictab1"
               data-toggle="tab"
               class="nav-link rounded-0 pt-2 pb-2 active"
             >
