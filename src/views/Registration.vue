@@ -1,52 +1,18 @@
 <template>
   <div class="wrapper">
-    <form class="form col-md-6" @submit.prevent="registerUser" novalidate>
+    <form class="form col-md-5" @submit.prevent="registerUser" novalidate>
       <div id="basicwizard">
         <ul class="nav nav-pills nav-justified form-wizard-header mb-4">
           <li class="nav-item">
-            <a
-              href="#basictab1"
-              data-toggle="tab"
-              class="nav-link rounded-0 pt-2 pb-2"
-              :class="{ active: active === 'account' }"
-              @click="changeActive('account')"
-            >
-              <i class="mdi mdi-account-circle mr-1"></i>
-              <span class="d-none d-sm-inline">Аккаунт</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              href="#basictab2"
-              data-toggle="tab"
-              class="nav-link rounded-0 pt-2 pb-2"
-              :class="{ active: active === 'profile' }"
-              @click="changeActive('profile')"
-            >
+            <a data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2 active">
               <i class="mdi mdi-face-profile mr-1"></i>
-              <span class="d-none d-sm-inline">Профиль</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              href="#basictab3"
-              data-toggle="tab"
-              class="nav-link rounded-0 pt-2 pb-2"
-              :class="{ active: active === 'finish' }"
-              @click="changeActive('finish')"
-            >
-              <i class="mdi mdi-checkbox-marked-circle-outline mr-1"></i>
-              <span class="d-none d-sm-inline">Завершить</span>
+              <span class="d-none d-sm-inline">Регистрация</span>
             </a>
           </li>
         </ul>
 
         <div class="tab-content b-0 mb-0">
-          <div
-            class="tab-pane"
-            id="basictab1"
-            :class="{ active: active === 'account' }"
-          >
+          <div class="tab-pane active" id="basictab1">
             <div class="row">
               <div class="col-12">
                 <div class="form-group row mb-3">
@@ -110,98 +76,6 @@
               </div>
               <!-- end col -->
             </div>
-            <!-- end row -->
-          </div>
-
-          <div
-            class="tab-pane"
-            id="basictab2"
-            :class="{ active: active === 'profile' }"
-          >
-            <div class="row">
-              <div class="col-12">
-                <div class="form-group row mb-3">
-                  <label class="col-md-3 col-form-label" for="name"> Имя</label>
-                  <div class="col-md-9">
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      class="form-control"
-                      placeholder="Francis"
-                      :class="{ 'is-invalid': $v.user.firstName.$error }"
-                      v-model.trim="$v.user.firstName.$model"
-                    />
-                    <div class="invalid-feedback">
-                      Пожалуйста введите Имя длинее
-                      {{ $v.user.firstName.$params.minLength.min }} символов
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row mb-3">
-                  <label class="col-md-3 col-form-label" for="surname">
-                    Фамилия</label
-                  >
-                  <div class="col-md-9">
-                    <input
-                      type="text"
-                      id="surname"
-                      name="surname"
-                      class="form-control"
-                      placeholder="Brinkman"
-                      :class="{ 'is-invalid': $v.user.secondName.$error }"
-                      v-model.trim="$v.user.secondName.$model"
-                    />
-                    <div class="invalid-feedback">
-                      Пожалуйста введите Фамилию длинее
-                      {{ $v.user.secondName.$params.minLength.min }} символов
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- end col -->
-            </div>
-            <!-- end row -->
-          </div>
-
-          <div
-            class="tab-pane"
-            id="basictab3"
-            :class="{ active: active === 'finish' }"
-          >
-            <div class="row">
-              <div class="col-12">
-                <div class="text-center">
-                  <h2 class="mt-0"><i class="mdi mdi-check-all"></i></h2>
-                  <h3 class="mt-0">Спасибо за регистрацию!</h3>
-
-                  <p class="w-75 mb-2 mx-auto">
-                    Мы отправим дополнительные данные на вашу почту.
-                  </p>
-
-                  <div class="mb-3">
-                    <div class="custom-control custom-checkbox">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck1"
-                        :class="{ 'is-invalid': !$v.user.checked.$model }"
-                        v-model="$v.user.checked.$model"
-                      />
-
-                      <label class="custom-control-label" for="customCheck1"
-                        >Я согласен с условиями пользования</label
-                      >
-                      <div class="invalid-feedback">
-                        Пожалуйста, примите соглашение
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- end col -->
-            </div>
-            <!-- end row -->
           </div>
 
           <div
@@ -220,11 +94,15 @@
             <i class="dripicons-wrong mr-2"></i> Пользователь существует
           </div>
 
-          <ul class="list-inline wizard mb-0" v-show="active == 'finish'">
-            <li class="next list-inline-item float-right disabled">
-              <button class="btn btn-info">{{ submitStatus }}</button>
-            </li>
-          </ul>
+          <div class="d-flex flex-column align-items-center">
+            <button
+              class="btn btn-info mb-1"
+              :disabled="!user.email || !user.password || !user.rePassword"
+            >
+              {{ submitStatus }}
+            </button>
+            <router-link to="/auth">Уже есть аккаунт?</router-link>
+          </div>
         </div>
       </div>
     </form>
@@ -239,18 +117,13 @@ export default {
   name: "Registration",
   data() {
     return {
-      active: "account",
       validationError: false,
       userExist: false,
       submitStatus: "Зарегистрироваться",
       user: {
-        login: "",
+        email: "",
         password: "",
         rePassword: "",
-        firstName: "",
-        secondName: "",
-        email: "",
-        checked: false,
       },
     };
   },
@@ -261,9 +134,6 @@ export default {
     }),
   },
   methods: {
-    changeActive(field) {
-      this.active = field;
-    },
     registerUser() {
       this.$v.$touch();
       if (this.$v.$invalid || !this.user.checked) {
