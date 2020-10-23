@@ -31,6 +31,14 @@ export default {
     Table,
     Footer,
   },
+  mounted() {
+    // const accessToken = localStorage.getItem("access_token");
+    // fetch(this.$store.state.authURL, {
+    //   headers: {
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    // }).then((res) => console.log(res));
+  },
 };
 </script>
 
