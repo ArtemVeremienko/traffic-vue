@@ -83,11 +83,8 @@
             >
               Войти
             </button>
-            <a
-              href="/registration"
-              class="btn btn-link"
-              @click.prevent="goToRegistration"
-              >У вас нет аккаунта? Регистрация</a
+            <router-link to="/registration" class="btn btn-link"
+              >У вас нет аккаунта? Регистрация</router-link
             >
           </div>
         </div>
@@ -142,9 +139,6 @@ export default {
           this.$router.push("/home");
         })
         .catch((err) => console.error(err));
-    },
-    goToRegistration() {
-      this.$router.push("registration");
     },
   },
 };
