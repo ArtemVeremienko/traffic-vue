@@ -1,17 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '../store'
 
 Vue.use(VueRouter)
 
-const token = localStorage.getItem('access_token')
-if (token) store.commit('setToken', token)
+const token = () => localStorage.getItem('access_token')
 
 const routes = [
   {
     path: '/',
     beforeEnter: (to, from, next) => {
-      if (token) next('/home')
+      if (token()) next('/home')
       else next('/auth')
     }
   },
@@ -30,7 +28,7 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue'),
     beforeEnter: (to, from, next) => {
-      if (!token) next('/auth')
+      if (!token()) next('/auth')
       else next()
     }
   },
