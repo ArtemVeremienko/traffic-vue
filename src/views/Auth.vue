@@ -107,24 +107,17 @@ export default {
   methods: {
     loginUser() {
       authorization(this.user)
-        .then((res) => {
-          if (res.status !== 200) {
-            this.loginError = true;
-            setTimeout(() => (this.loginError = false), 2000);
-            res.text().then((text) => {
-              throw new Error(text);
-            });
-          } else {
-            return res;
-          }
-        })
         .then(({ data }) => {
           this.$store.commit("setUser", data.user);
           localStorage.setItem("access_token", data.access_token);
           setSecureCookie("refresh_token", data.refresh_token);
-          this.$router.push("/home");
+          this.$router.push("home");
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          this.loginError = true;
+          setTimeout(() => (this.loginError = false), 2000);
+          console.error(err);
+        });
     },
   },
 };

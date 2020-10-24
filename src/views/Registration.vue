@@ -106,7 +106,6 @@
         </div>
       </div>
     </form>
-    {{ $store.state }}
   </div>
 </template>
 
@@ -152,7 +151,7 @@ export default {
             this.$store.commit("setUser", data.user);
             localStorage.setItem("access_token", data.access_token);
             setSecureCookie("refresh_token", data.refresh_token);
-            this.$router.push("/home");
+            this.$router.push("home");
           })
           .catch((err) => {
             if (err.response.status === 409) {
