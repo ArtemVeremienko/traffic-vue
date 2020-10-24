@@ -35,6 +35,5 @@ export const setCookie = (name, value, options = {}) => {
 export const setSecureCookie = (name, value) => {
   setCookie(name, value, {
     secure: true,
-    httpOnly: true,
   })
 }
