@@ -32,12 +32,7 @@ export default {
     Footer,
   },
   mounted() {
-    // const accessToken = localStorage.getItem("access_token");
-    // fetch(this.$store.state.authURL, {
-    //   headers: {
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    // }).then((res) => console.log(res));
+    console.log(this.$store.state);
   },
 };
 </script>
