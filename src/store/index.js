@@ -14,14 +14,12 @@ export default new Vuex.Store({
     isAuth: state => !!state.acessToken
   },
   mutations: {
-    setUser(state, payload) {
-      state.user = payload
-    },
-    setTokens(state, { access, refresh }) {
+    login(state, { access, refresh, user }) {
+      state.user = user
       state.acessToken = access
       state.refreshToken = refresh
     },
-    clearData(state) {
+    logout(state) {
       state.acessToken = ''
       state.refreshToken = ''
       state.user = {}
@@ -32,8 +30,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         authorization(user)
           .then(({ data }) => {
-            commit("setUser", data.user);
-            commit('setTokens', { access: data.access_token, refresh: data.refresh_token })
+            commit('login', { access: data.access_token, refresh: data.refresh_token, user: data.user })
             localStorage.setItem("access_token", data.access_token);
             localStorage.setItem("refresh_token", data.refresh_token);
             resolve(data)
@@ -47,8 +44,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         registration(data)
           .then(({ data }) => {
-            commit("setUser", data.user);
-            commit('setTokens', { access: data.access_token, refresh: data.refresh_token })
+            commit('login', { access: data.access_token, refresh: data.refresh_token, user: data.user })
             localStorage.setItem("access_token", data.access_token);
             localStorage.setItem("refresh_token", data.refresh_token);
             resolve(data)
@@ -59,7 +55,7 @@ export default new Vuex.Store({
     logout({ commit }) {
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
-      commit('clearData')
+      commit('logout')
     }
   },
   modules: {
