@@ -26,7 +26,7 @@
                       aria-expanded="false"
                       @click.prevent="changeActive(1)"
                     >
-                      <i class="uil-store"></i>
+                      <i class="dripicons-search"></i>
                       <span> Видимость </span>
                       <span class="menu-arrow"></span>
                     </a>
@@ -36,22 +36,22 @@
                       aria-expanded="false"
                     >
                       <li>
-                        <a href="apps-ecommerce-products.html">Сайты</a>
+                        <a href="#">Сайты</a>
                       </li>
                       <li>
-                        <a href="apps-ecommerce-orders.html">Категории</a>
+                        <a href="#">Категории</a>
                       </li>
                       <li>
-                        <a href="apps-ecommerce-customers.html">Кластеры</a>
+                        <a href="#">Кластеры</a>
                       </li>
                       <li>
-                        <a href="apps-ecommerce-checkout.html">Запросы</a>
+                        <a href="#">Запросы</a>
                       </li>
                       <li>
-                        <a href="apps-ecommerce-sellers.html">Выборки</a>
+                        <a href="#">Выборки</a>
                       </li>
                       <li>
-                        <a href="apps-ecommerce-sellers.html">Исполнители</a>
+                        <a href="#">Исполнители</a>
                       </li>
                     </ul>
                   </li>
@@ -66,7 +66,7 @@
                       aria-expanded="false"
                       @click.prevent="changeActive(2)"
                     >
-                      <i class="uil-store"></i>
+                      <i class="uil-chart"></i>
                       <span> Трафик </span>
                       <span class="menu-arrow"></span>
                     </a>
@@ -76,12 +76,10 @@
                       aria-expanded="false"
                     >
                       <li>
-                        <a href="apps-ecommerce-products.html">Сегменты</a>
+                        <a href="#">Сегменты</a>
                       </li>
                       <li>
-                        <a href="apps-ecommerce-products-details.html"
-                          >Конкуренты</a
-                        >
+                        <a href="#">Конкуренты</a>
                       </li>
                     </ul>
                   </li>
@@ -96,7 +94,7 @@
                       aria-expanded="false"
                       @click.prevent="changeActive(3)"
                     >
-                      <i class="uil-store"></i>
+                      <i class="dripicons-cart"></i>
                       <span> Рынок </span>
                       <span class="menu-arrow"></span>
                     </a>
@@ -106,12 +104,10 @@
                       aria-expanded="false"
                     >
                       <li>
-                        <a href="apps-ecommerce-products.html">Компании</a>
+                        <a href="#">Компании</a>
                       </li>
                       <li>
-                        <a href="apps-ecommerce-products-details.html"
-                          >Категории</a
-                        >
+                        <a href="#">Категории</a>
                       </li>
                     </ul>
                   </li>
@@ -125,7 +121,7 @@
                       class="side-nav-link"
                       @click.prevent="changeActive(4)"
                     >
-                      <i class="uil-store"></i>
+                      <i class="dripicons-monitor"></i>
                       <span> Технический монитор </span>
                     </a>
                   </li>
@@ -140,7 +136,7 @@
                       aria-expanded="false"
                       @click.prevent="changeActive(5)"
                     >
-                      <i class="uil-store"></i>
+                      <i class="dripicons-to-do"></i>
                       <span> Отчёты </span>
                     </a>
                   </li>

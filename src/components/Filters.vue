@@ -1,5 +1,5 @@
 <template>
-  <div class="row mb-3">
+  <div class="row my-3">
     <div class="col-md-8">
       <p>Быстрые фильтры:</p>
       <div class="btn-group mb-2">
