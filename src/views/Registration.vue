@@ -106,12 +106,13 @@
         </div>
       </div>
     </form>
+    {{ $store.state }}
   </div>
 </template>
 
 <script>
 import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
-import { mapState } from "vuex";
+import { registration, setSecureCookie } from "../api";
 
 export default {
   name: "Registration",
@@ -124,52 +125,41 @@ export default {
         email: "",
         password: "",
         rePassword: "",
+        name: "empty",
+        secondName: "empty",
       },
     };
-  },
-  computed: {
-    ...mapState({
-      regURL: "regURL",
-      headers: "headers",
-    }),
   },
   methods: {
     registerUser() {
       this.$v.$touch();
-      if (this.$v.$invalid || !this.user.checked) {
+      if (this.$v.$invalid) {
         this.validationError = true;
       } else {
-        const body = JSON.stringify({
+        const data = {
           email: this.user.email,
-          name: this.user.firstName,
           password: this.user.password,
+          name: this.user.name,
           second_name: this.user.secondName,
-        });
+        };
 
         this.submitStatus = "Проверка";
 
-        fetch(this.regURL, {
-          method: "POST",
-          headers: this.headers,
-          body,
-        })
-          .then((res) => {
-            if (res.ok) return res.json();
-            if (res.status === 409) {
-              this.userExist = true;
-              setTimeout(() => (this.userExist = false), 2000);
-              throw new Error(res.statusText);
-            }
-          })
-          .then((json) => {
+        registration(data)
+          .then(({ data }) => {
             this.submitStatus = "Готово";
             this.validationError = false;
-            this.$store.commit("setUser", json.user);
-            localStorage.setItem("access_token", json.access_token);
-            localStorage.setItem("refresh_token", json.refresh_token);
+            this.$store.commit("setUser", data.user);
+            localStorage.setItem("access_token", data.access_token);
+            setSecureCookie("refresh_token", data.refresh_token);
             this.$router.push("/home");
           })
-          .catch((err) => console.error(err));
+          .catch((err) => {
+            if (err.response.status === 409) {
+              this.userExist = true;
+              setTimeout(() => (this.userExist = false), 2000);
+            }
+          });
       }
     },
   },
@@ -185,17 +175,6 @@ export default {
       },
       rePassword: {
         sameAs: sameAs("password"),
-      },
-      firstName: {
-        required,
-        minLength: minLength(3),
-      },
-      secondName: {
-        required,
-        minLength: minLength(3),
-      },
-      checked: {
-        required,
       },
     },
   },
