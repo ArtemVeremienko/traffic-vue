@@ -28,12 +28,6 @@ export const setCookie = (name, value, options = {}) => {
       updatedCookie += "=" + optionValue;
     }
   }
-
+  console.log(updatedCookie)
   document.cookie = updatedCookie;
-}
-
-export const setSecureCookie = (name, value) => {
-  setCookie(name, value, {
-    secure: true,
-  })
 }

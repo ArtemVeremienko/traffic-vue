@@ -111,7 +111,7 @@
 
 <script>
 import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
-import { registration, setSecureCookie } from "../api";
+import { registration, setCookie } from "../api";
 
 export default {
   name: "Registration",
@@ -150,7 +150,7 @@ export default {
             this.validationError = false;
             this.$store.commit("setUser", data.user);
             localStorage.setItem("access_token", data.access_token);
-            setSecureCookie("refresh_token", data.refresh_token);
+            setCookie("refresh_token", data.refresh_token);
             this.$router.push("home");
           })
           .catch((err) => {

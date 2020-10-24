@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { authorization, setSecureCookie } from "../api";
+import { authorization, setCookie } from "../api";
 
 export default {
   name: "Auth",
@@ -110,7 +110,7 @@ export default {
         .then(({ data }) => {
           this.$store.commit("setUser", data.user);
           localStorage.setItem("access_token", data.access_token);
-          setSecureCookie("refresh_token", data.refresh_token);
+          setCookie("refresh_token", data.refresh_token);
           this.$router.push("home");
         })
         .catch((err) => {
