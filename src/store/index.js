@@ -35,9 +35,7 @@ export default new Vuex.Store({
             localStorage.setItem("refresh_token", data.refresh_token);
             resolve(data)
           })
-          .catch((err) => {
-            reject(err)
-          });
+          .catch((err) => reject(err));
       })
     },
     register({ commit }, data) {
