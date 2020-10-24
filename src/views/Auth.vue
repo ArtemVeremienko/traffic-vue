@@ -4,10 +4,7 @@
       <div id="basicwizard">
         <ul class="nav nav-pills nav-justified form-wizard-header mb-4">
           <li class="nav-item">
-            <a
-              data-toggle="tab"
-              class="nav-link rounded-0 pt-2 pb-2 active"
-            >
+            <a data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2 active">
               <i class="mdi mdi-account-circle mr-1"></i>
               <span class="d-none d-sm-inline">Авторизация на сайте</span>
             </a>
@@ -93,7 +90,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { authorization, setSecureCookie } from "../api";
 
 export default {
   name: "Auth",
@@ -107,34 +104,24 @@ export default {
       },
     };
   },
-  computed: {
-    ...mapState({
-      authURL: "authURL",
-      headers: "headers",
-    }),
-  },
   methods: {
     loginUser() {
-      fetch(this.authURL, {
-        method: "POST",
-        headers: this.headers,
-        body: JSON.stringify(this.user),
-      })
+      authorization(this.user)
         .then((res) => {
-          if (!res.ok) {
+          if (res.status !== 200) {
             this.loginError = true;
             setTimeout(() => (this.loginError = false), 2000);
-            return res.text().then((text) => {
+            res.text().then((text) => {
               throw new Error(text);
             });
           } else {
-            return res.json();
+            return res;
           }
         })
-        .then((json) => {
-          this.$store.commit("setUser", json.user);
-          localStorage.setItem("access_token", json.access_token);
-          localStorage.setItem("refresh_token", json.refresh_token);
+        .then(({ data }) => {
+          this.$store.commit("setUser", data.user);
+          localStorage.setItem("access_token", data.access_token);
+          setSecureCookie("refresh_token", data.refresh_token);
           this.$router.push("/home");
         })
         .catch((err) => console.error(err));
