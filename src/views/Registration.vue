@@ -111,7 +111,6 @@
 
 <script>
 import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
-import { registration, setCookie } from "../api";
 
 export default {
   name: "Registration",
@@ -144,19 +143,19 @@ export default {
 
         this.submitStatus = "Проверка";
 
-        registration(data)
-          .then(({ data }) => {
+        this.$store
+          .dispatch("register", data)
+          .then(() => {
             this.submitStatus = "Готово";
             this.validationError = false;
-            this.$store.commit("setUser", data.user);
-            localStorage.setItem("access_token", data.access_token);
-            setCookie("refresh_token", data.refresh_token);
             this.$router.push("home");
           })
           .catch((err) => {
             if (err.response.status === 409) {
               this.userExist = true;
               setTimeout(() => (this.userExist = false), 2000);
+            } else {
+              console.error(err);
             }
           });
       }

@@ -90,8 +90,6 @@
 </template>
 
 <script>
-import { authorization, setCookie } from "../api";
-
 export default {
   name: "Auth",
   data() {
@@ -106,13 +104,9 @@ export default {
   },
   methods: {
     loginUser() {
-      authorization(this.user)
-        .then(({ data }) => {
-          this.$store.commit("setUser", data.user);
-          localStorage.setItem("access_token", data.access_token);
-          setCookie("refresh_token", data.refresh_token);
-          this.$router.push("home");
-        })
+      this.$store
+        .dispatch("login", this.user)
+        .then(() => this.$router.push("home"))
         .catch((err) => {
           this.loginError = true;
           setTimeout(() => (this.loginError = false), 2000);

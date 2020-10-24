@@ -1,16 +1,15 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
+import store from '../store'
 
 Vue.use(VueRouter)
-
-const token = () => localStorage.getItem('access_token')
 
 const routes = [
   {
     path: '/',
     beforeEnter: (to, from, next) => {
-      if (token()) next('/home')
-      else next('/auth')
+      if (store.getters.isAuth) next('/home')
+      else next('auth')
     }
   },
   {
@@ -28,7 +27,7 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue'),
     beforeEnter: (to, from, next) => {
-      if (!token()) next('/auth')
+      if (!store.getters.isAuth) next('auth')
       else next()
     }
   },
