@@ -26,21 +26,16 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    login({ commit }, payload) {
-      return new Promise((resolve, reject) => {
-        post(payload)
-          .then(({ data }) => {
-            commit('login', {
-              access: data.access_token,
-              refresh: data.refresh_token,
-              user: data.user
-            })
-            localStorage.setItem("access_token", data.access_token);
-            localStorage.setItem("refresh_token", data.refresh_token);
-            resolve(data)
-          })
-          .catch((err) => reject(err));
+    async login({ commit }, payload) {
+      const { data } = await post(payload)
+      commit('login', {
+        access: data.access_token,
+        refresh: data.refresh_token,
+        user: data.user
       })
+      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("refresh_token", data.refresh_token);
+      return data
     },
     logout({ commit }) {
       localStorage.removeItem("access_token");

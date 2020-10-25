@@ -111,6 +111,7 @@
 
 <script>
 import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
+const notifTime = 2000;
 
 export default {
   name: "Registration",
@@ -133,6 +134,7 @@ export default {
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.validationError = true;
+        setTimeout(() => (this.validationError = false), notifTime);
       } else {
         const data = {
           email: this.user.email,
@@ -153,7 +155,7 @@ export default {
           .catch((err) => {
             if (err.response.status === 409) {
               this.userExist = true;
-              setTimeout(() => (this.userExist = false), 2000);
+              setTimeout(() => (this.userExist = false), notifTime);
             } else {
               console.error(err);
             }

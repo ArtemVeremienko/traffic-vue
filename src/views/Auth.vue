@@ -108,9 +108,12 @@ export default {
         .dispatch("login", { path: "auth", data: this.user })
         .then(() => this.$router.push("home"))
         .catch((err) => {
-          this.loginError = true;
-          setTimeout(() => (this.loginError = false), 2000);
-          console.error(err);
+          if (err.response.status === 422) {
+            this.loginError = true;
+            setTimeout(() => (this.loginError = false), 2000);
+          } else {
+            console.error(err);
+          }
         });
     },
   },

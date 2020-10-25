@@ -31,9 +31,6 @@ export default {
     Table,
     Footer,
   },
-  mounted() {
-    console.log(this.$store.state);
-  },
 };
 </script>
 
