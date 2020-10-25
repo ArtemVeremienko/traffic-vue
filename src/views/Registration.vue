@@ -144,7 +144,7 @@ export default {
         this.submitStatus = "Проверка";
 
         this.$store
-          .dispatch("register", data)
+          .dispatch("login", { path: "user", data })
           .then(() => {
             this.submitStatus = "Готово";
             this.validationError = false;

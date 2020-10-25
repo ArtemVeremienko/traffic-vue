@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { authorization, registration } from '../api'
+import { post } from '../api'
 
 Vue.use(Vuex)
 
@@ -26,23 +26,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    login({ commit }, user) {
+    login({ commit }, payload) {
       return new Promise((resolve, reject) => {
-        authorization(user)
+        post(payload)
           .then(({ data }) => {
-            commit('login', { access: data.access_token, refresh: data.refresh_token, user: data.user })
-            localStorage.setItem("access_token", data.access_token);
-            localStorage.setItem("refresh_token", data.refresh_token);
-            resolve(data)
-          })
-          .catch((err) => reject(err));
-      })
-    },
-    register({ commit }, data) {
-      return new Promise((resolve, reject) => {
-        registration(data)
-          .then(({ data }) => {
-            commit('login', { access: data.access_token, refresh: data.refresh_token, user: data.user })
+            commit('login', {
+              access: data.access_token,
+              refresh: data.refresh_token,
+              user: data.user
+            })
             localStorage.setItem("access_token", data.access_token);
             localStorage.setItem("refresh_token", data.refresh_token);
             resolve(data)

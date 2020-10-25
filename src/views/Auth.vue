@@ -105,7 +105,7 @@ export default {
   methods: {
     loginUser() {
       this.$store
-        .dispatch("login", this.user)
+        .dispatch("login", { path: "auth", data: this.user })
         .then(() => this.$router.push("home"))
         .catch((err) => {
           this.loginError = true;
