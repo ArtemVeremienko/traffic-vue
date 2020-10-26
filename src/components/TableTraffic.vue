@@ -68,7 +68,7 @@
                     aria-sort="ascending"
                     aria-label="Name: activate to sort column descending"
                   >
-                    Тип трафика
+                    Дата
                   </th>
                   <th
                     class="sorting"
