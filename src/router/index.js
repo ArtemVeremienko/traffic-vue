@@ -29,11 +29,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (!store.getters.isAuth) {
         next('auth')
-      } else {
+      } else if (!from.name) {
         store.dispatch('setUser')
         next()
+      } else {
+        next()
       }
-
     }
   },
 
