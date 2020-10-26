@@ -27,8 +27,13 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue'),
     beforeEnter: (to, from, next) => {
-      if (!store.getters.isAuth) next('auth')
-      else next()
+      if (!store.getters.isAuth) {
+        next('auth')
+      } else {
+        store.dispatch('setUser')
+        next()
+      }
+
     }
   },
 
