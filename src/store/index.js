@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { post, getUser } from '../api'
+import { post, getUser, getTraffic } from '../api'
 import axios from 'axios'
 
 Vue.use(Vuex)
@@ -10,7 +10,8 @@ export default new Vuex.Store({
     acessToken: localStorage.getItem('access_token') || '',
     refreshToken: localStorage.getItem('refresh_token') || '',
     userId: localStorage.getItem('user_id'),
-    user: {}
+    user: {},
+    traffic: {},
   },
   getters: {
     isAuth: state => !!state.acessToken
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     setUser(state, user) {
       state.user = user
+    },
+    setTraffic(state, data) {
+      state.traffic = data
     }
   },
   actions: {
@@ -54,6 +58,22 @@ export default new Vuex.Store({
       axios.defaults.headers.common['Authorization'] = `Bearer ${state.acessToken}`;
       const { data } = await getUser(state.userId);
       commit('setUser', data)
+    },
+    async setTraffic({ commit, state }) {
+      try {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${state.acessToken}`;
+        const { data } = await getTraffic();
+        commit('setTraffic', data)
+        return data
+      } catch (err) {
+        if (err.response.status === 401) {
+          console.error('Время действия токена вышло')
+          axios.defaults.headers.common['Authorization'] = `Bearer ${state.refreshToken}`;
+          const { data } = await post({ path: 'auth/refresh' })
+          localStorage.setItem("access_token", data.access_token);
+        }
+        console.error(err)
+      }
     }
   },
   modules: {
