@@ -6,7 +6,7 @@
         <Navbar />
         <div class="container-fluid">
           <Filters />
-          <Table />
+          <TableTraffic />
         </div>
       </div>
       <Footer />
@@ -19,7 +19,7 @@
 import LeftSideMenu from "@/components/LeftSideMenu.vue";
 import Navbar from "@/components/Navbar.vue";
 import Filters from "@/components/Filters.vue";
-import Table from "@/components/Table.vue";
+import TableTraffic from "@/components/TableTraffic.vue";
 import Footer from "@/components/Footer.vue";
 
 export default {
@@ -28,7 +28,7 @@ export default {
     LeftSideMenu,
     Navbar,
     Filters,
-    Table,
+    TableTraffic,
     Footer,
   },
 };
