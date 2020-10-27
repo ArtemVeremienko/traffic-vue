@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: "Table",
+  name: "TableSegments",
   methods: {
     random(num) {
       return Math.floor(Math.random() * num);
