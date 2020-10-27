@@ -842,6 +842,7 @@ export default {
         yandex_non_brand_share: "Yandex Brand / Yandex Non Brand",
         yandex_total: "Yandex Brand / Yandex Non Brand",
       },
+      table: {},
     };
   },
   computed: {
