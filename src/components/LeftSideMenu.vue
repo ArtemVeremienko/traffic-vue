@@ -64,7 +64,7 @@
                       href="#"
                       class="side-nav-link"
                       aria-expanded="false"
-                      @click.prevent="changeActive(2)"
+                      @click="changeActive(2)"
                     >
                       <i class="uil-chart"></i>
                       <span> Трафик </span>
@@ -76,10 +76,13 @@
                       aria-expanded="false"
                     >
                       <li>
-                        <a href="#">Сегменты</a>
+                        <router-link to="/home/traffic">Трафик</router-link>
                       </li>
                       <li>
-                        <a href="#">Конкуренты</a>
+                        <router-link to="/home/segments">Сегменты</router-link>
+                      </li>
+                      <li>
+                        <router-link to="">Конкуренты</router-link>
                       </li>
                     </ul>
                   </li>
@@ -155,7 +158,7 @@ export default {
   name: "LeftSideMenu",
   data() {
     return {
-      indexVisible: 1,
+      indexVisible: 2,
     };
   },
   methods: {
