@@ -5,8 +5,7 @@
       <div class="content">
         <Navbar />
         <div class="container-fluid">
-          <Filters />
-          <TableTraffic />
+          <router-view />
         </div>
       </div>
       <Footer />
@@ -15,11 +14,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import LeftSideMenu from "@/components/LeftSideMenu.vue";
 import Navbar from "@/components/Navbar.vue";
-import Filters from "@/components/Filters.vue";
-import TableTraffic from "@/components/TableTraffic.vue";
 import Footer from "@/components/Footer.vue";
 
 export default {
@@ -27,8 +23,6 @@ export default {
   components: {
     LeftSideMenu,
     Navbar,
-    Filters,
-    TableTraffic,
     Footer,
   },
 };
