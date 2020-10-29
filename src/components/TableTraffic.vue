@@ -1,11 +1,8 @@
 <template>
   <div class="row">
     <div class="col-sm-12">
-      <div
-        id="datatable-buttons_wrapper"
-        class="dataTables_wrapper dt-bootstrap4 no-footer"
-      >
-        <div class="row">
+      <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row my-2">
           <div class="col-sm-12 col-md-6 filters">
             <div class="dt-buttons btn-group flex-wrap">
               <button
@@ -13,35 +10,35 @@
                 tabindex="0"
                 aria-controls="datatable-buttons"
                 type="button"
-                v-for="(value, name) in traffic"
+                v-for="(value, name) in table"
                 :key="name"
-                @click="changeFilter(name)"
+                @click="changeDevice(name)"
               >
-                <span>{{ name }}</span>
+                <span>{{ name | capitalize }}</span>
               </button>
             </div>
           </div>
-          <div class="col-sm-12 col-md-6">
-            <div id="datatable-buttons_filter" class="dataTables_filter">
-              <label
-                >Search:<input
-                  type="search"
-                  class="form-control form-control-sm"
-                  placeholder=""
-                  aria-controls="datatable-buttons"
-              /></label>
-            </div>
+          <div class="col-sm-12 col-md-6 filters">
+            <DateRangePicker></DateRangePicker>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-sm-12">
+          <div class="col-sm-12 d-flex justify-content-center">
+            <div
+              class="spinner-grow text-secondary m-4"
+              style="width: 3rem; height: 3rem"
+              role="status"
+              v-if="loading"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
             <table
               id="datatable-buttons"
               class="table table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline"
               role="grid"
               aria-describedby="datatable-buttons_info"
-              v-if="traffic"
+              v-else
             >
               <thead>
                 <tr role="row">
@@ -198,117 +195,63 @@
 </template>
 
 <script>
-import { transform } from "@/utils";
+import { transform, rowsMap } from "@/utils";
 import draggable from "vuedraggable";
+import DateRangePicker from "./DateRangePicker";
 
 export default {
   name: "TableTraffic",
   components: {
     draggable,
+    DateRangePicker,
   },
   data() {
     return {
-      activeFilter: "TOTAL",
-      traffic: {
-        DESKTOP: {
-          total_brand: {
-            "2020-10-27": 3,
-          },
-          total_brand_share: {
-            "2020-10-27": 0.75,
-          },
-          total_non_brand: {
-            "2020-10-27": 1,
-          },
-          total_non_brand_share: {
-            "2020-10-27": 0.25,
-          },
-          total_total: {
-            "2020-10-27": 4,
-          },
-          yandex_brand: {
-            "2020-10-27": 3,
-          },
-          yandex_brand_share: {
-            "2020-10-27": 0.75,
-          },
-          yandex_non_brand: {
-            "2020-10-27": 1,
-          },
-          yandex_non_brand_share: {
-            "2020-10-27": 0.25,
-          },
-          yandex_total: {
-            "2020-10-27": 4,
-          },
-        },
-        TOTAL: {
-          total_brand: {
-            "2020-10-27": 4,
-          },
-          total_brand_share: {
-            "2020-10-27": 0.75,
-          },
-          total_non_brand: {
-            "2020-10-27": 1,
-          },
-          total_non_brand_share: {
-            "2020-10-27": 0.25,
-          },
-          total_total: {
-            "2020-10-27": 4,
-          },
-          yandex_brand: {
-            "2020-10-27": 3,
-          },
-          yandex_brand_share: {
-            "2020-10-27": 0.75,
-          },
-          yandex_non_brand: {
-            "2020-10-27": 1,
-          },
-          yandex_non_brand_share: {
-            "2020-10-27": 0.25,
-          },
-          yandex_total: {
-            "2020-10-27": 4,
-          },
-        },
-      },
-      rowsMap: {
-        total_brand: "Google",
-        total_brand_share: "Google Brand",
-        total_non_brand: "Google Non Brand",
-        total_non_brand_share: "Google Brand / Non Brand",
-        total_total: "All",
-        yandex_brand: "Yandex",
-        yandex_brand_share: "Yandex Brand",
-        yandex_non_brand: "Yandex Non Brand",
-        yandex_non_brand_share: "Yandex Brand / Yandex Non Brand",
-        yandex_total: "Yandex Brand / Yandex Non Brand",
-      },
-      table: null,
+      activeDevice: "TOTAL",
+      table: {},
       rows: [],
+      error: null,
+      loading: false,
     };
   },
   computed: {
     headers() {
+      if (!this.rows.length) return [];
       return Object.keys(this.rows[0]).slice(1);
     },
   },
   methods: {
     mapName(name) {
-      return this.rowsMap[name] || name;
+      return rowsMap[name] || name;
     },
-    changeFilter(name) {
-      this.activeFilter = name;
+    changeDevice(name) {
+      this.activeDevice = name;
       this.rows = this.table[name];
+    },
+    fetchData() {
+      this.error = this.table = null;
+      this.loading = true;
+      this.$store
+        .dispatch("setTraffic")
+        .then((data) => {
+          this.table = transform(data);
+          this.rows = this.table[this.activeDevice];
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.error = err;
+          alert(this.error);
+        });
+    },
+  },
+  filters: {
+    capitalize(str) {
+      if (!str) return "";
+      return str[0].toUpperCase() + str.slice(1).toLowerCase();
     },
   },
   created() {
-    // this.$store.dispatch("setTraffic").then((data) => (this.traffic = data));
-    this.table = transform(this.traffic);
-    this.rows = this.table[this.activeFilter];
+    this.fetchData();
   },
 };
 </script>
