@@ -27,7 +27,7 @@
                   вернуться на правильный путь.
                 </p>
 
-                <router-link class="btn btn-info mt-3" to="/">
+                <router-link class="btn btn-info mt-3" to="/home">
                   <i class="mdi mdi-reply"></i> Вернуться на главную
                 </router-link>
               </div>
@@ -39,7 +39,7 @@
 
     <footer class="footer footer-alt">
       {{ year }}
-      © Hyper - Coderthemes.com
+      © All rights reserved
     </footer>
   </div>
 </template>
