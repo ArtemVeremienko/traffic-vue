@@ -46,7 +46,7 @@ export default {
   name: "Navbar",
   methods: {
     logout() {
-      this.$store.dispatch("logout").then(() => this.$router.push("auth"));
+      this.$store.dispatch("logout").then(() => this.$router.push("/auth"));
     },
   },
   computed: {
