@@ -15,17 +15,27 @@ const routes = [
   {
     path: '/auth',
     name: 'Auth',
-    component: () => import('../views/Auth.vue')
+    component: () => import('../views/Auth')
   },
   {
     path: '/registration',
     name: 'Registration',
-    component: () => import('../views/Registration.vue')
+    component: () => import('../views/Registration')
   },
   {
     path: '/home',
     name: 'Home',
-    component: () => import('../views/Home.vue'),
+    component: () => import('../views/Home'),
+    children: [
+      {
+        path: 'traffic',
+        component: () => import('../components/TableTraffic')
+      },
+      {
+        path: 'segments',
+        component: () => import('../components/TableSegments')
+      }
+    ],
     beforeEnter: (to, from, next) => {
       if (!store.getters.isAuth) {
         next('auth')
@@ -37,7 +47,11 @@ const routes = [
       }
     }
   },
-
+  {
+    path: '*',
+    name: '404',
+    component: () => import('../views/404')
+  }
 ]
 
 const router = new VueRouter({
