@@ -82,7 +82,7 @@
                         <router-link to="/home/segments">Сегменты</router-link>
                       </li>
                       <li>
-                        <router-link to="">Конкуренты</router-link>
+                        <router-link to="/error-page">Конкуренты</router-link>
                       </li>
                     </ul>
                   </li>
