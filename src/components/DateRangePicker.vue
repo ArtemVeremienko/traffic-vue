@@ -41,11 +41,11 @@ export default {
     };
   },
   methods: {
-    updateValues(...args) {
-      console.log(args);
+    updateValues() {
+      
     },
-    checkOpen(...args) {
-      console.log(args);
+    checkOpen() {
+      
     },
     dateFormat(classes, date) {
       if (!classes.disabled) {
