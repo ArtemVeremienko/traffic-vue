@@ -76,13 +76,19 @@
                       aria-expanded="false"
                     >
                       <li>
-                        <router-link to="/home/traffic">Трафик</router-link>
+                        <router-link to="/home/traffic" active-class="active"
+                          >Трафик</router-link
+                        >
                       </li>
                       <li>
-                        <router-link to="/home/segments">Сегменты</router-link>
+                        <router-link to="/home/segments" active-class="active"
+                          >Сегменты</router-link
+                        >
                       </li>
                       <li>
-                        <router-link to="/error-page">Конкуренты</router-link>
+                        <router-link to="/error-page" active-class="active"
+                          >Конкуренты</router-link
+                        >
                       </li>
                     </ul>
                   </li>
@@ -173,7 +179,7 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 .card,
 .card-header {
   background-color: transparent;
@@ -181,5 +187,8 @@ export default {
 
 .custom-accordion-title {
   color: white;
+}
+.active {
+  color: #fff !important;
 }
 </style>
