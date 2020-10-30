@@ -39,8 +39,8 @@
           <div class="col-sm-12 col-md-4 filters">
             <DateRangePicker class="mr-1"></DateRangePicker>
             <div class="dropdown">
-              <select class="form-control">
-                <option selected>Яндекс и Гугл</option>
+              <select class="form-control" v-model="selectedSearch">
+                <option>Яндекс и Гугл</option>
                 <option>Яндекс</option>
                 <option>Гугл</option>
               </select>
@@ -234,7 +234,7 @@ export default {
     return {
       activeDevice: "TOTAL",
       activeBrand: "BRAND",
-      traffic: {},
+      selectedSearch: "Яндекс и Гугл",
       table: {},
       rows: [],
       error: null,
