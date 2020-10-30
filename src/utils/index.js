@@ -13,14 +13,19 @@ export const transform = (data) => {
 }
 
 export const rowsMap = {
-  total_brand: "Google",
-  total_brand_share: "Google Brand",
-  total_non_brand: "Google Non Brand",
-  total_non_brand_share: "Google Brand / Non Brand",
   total_total: "All",
-  yandex_brand: "Yandex",
-  yandex_brand_share: "Yandex Brand",
+  total_brand: "Brand",
+  total_non_brand: "Non Brand",
+  total_brand_share: "Brand / All",
+  total_non_brand_share: "Non Brand / All",
+  yandex_total: "Yandex",
+  yandex_brand: "Yandex Brand",
   yandex_non_brand: "Yandex Non Brand",
-  yandex_non_brand_share: "Yandex Brand / Yandex Non Brand",
-  yandex_total: "Yandex Brand + Yandex Non Brand",
+  yandex_brand_share: "Yandex Brand / All Yandex",
+  yandex_non_brand_share: "Yandex Non Brand / All Yandex",
+  google_total: "Google",
+  google_brand: "Google Brand",
+  google_non_brand: "Google Non Brand",
+  google_brand_share: "Google Brand / All Google",
+  google_non_brand_share: "Google Non Brand / All Google",
 }
