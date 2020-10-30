@@ -150,7 +150,7 @@ export default {
           .then(() => {
             this.submitStatus = "Готово";
             this.validationError = false;
-            this.$router.push("home");
+            this.$router.push("home/traffic");
           })
           .catch((err) => {
             if (err.response.status === 409) {

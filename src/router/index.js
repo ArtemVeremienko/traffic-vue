@@ -8,7 +8,7 @@ const routes = [
   {
     path: '/',
     beforeEnter: (to, from, next) => {
-      if (store.getters.isAuth) next('/home')
+      if (store.getters.isAuth) next('/home/traffic')
       else next('auth')
     }
   },

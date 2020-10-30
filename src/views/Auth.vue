@@ -106,7 +106,7 @@ export default {
     loginUser() {
       this.$store
         .dispatch("login", { path: "auth", data: this.user })
-        .then(() => this.$router.push("home"))
+        .then(() => this.$router.push("home/traffic"))
         .catch((err) => {
           if (err.response.status === 422) {
             this.loginError = true;
